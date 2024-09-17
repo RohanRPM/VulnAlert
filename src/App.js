@@ -16,13 +16,21 @@ import './index.css';
 const App = () => {
   const [activePage, setActivePage] = useState('Dashboard');
   const [isDarkMode, setIsDarkMode] = useState(false);
-  
+  const [sources, setSources] = useState([]); // Initialize sources as an empty array
+
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
-  const handleLogin = () => {
-    // Handle successful login, e.g., redirect to the dashboard
-    window.location.href = '/dashboard';
+  const handleAddNewSource = () => {
+    // Handle adding new sources logic here
+    const newSource = {
+      name: 'New Source',
+      type: 'API',
+      status: 'Active',
+      lastChecked: new Date().toLocaleString(),
+    };
+    setSources([...sources, newSource]);
   };
+
   return (
     <Router>
       <div className={`flex ${isDarkMode ? 'dark' : ''}`}>
@@ -35,10 +43,12 @@ const App = () => {
           />
           <div className="p-6">
             <Routes>
-              <Route path="/" element={<LoginPage onLogin={() => {handleLogin();}} />} />
-
+              <Route path="/" element={<LoginPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/source-management" element={<SourceManagement onAddNew={() => { /* Handle add new */ }} />} />
+              <Route 
+                path="/source-management" 
+                element={<SourceManagement onAddNew={handleAddNewSource} sources={sources} />} 
+              />
               <Route path="/alert-configuration" element={<AlertConfiguration />} />
               <Route path="/recipients" element={<Recipients />} />
               <Route path="/reports" element={<Reports />} />

@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types'; // Import for prop validation
 
-const SourceManagement = ({ onAddNew, sources }) => (
+const SourceManagement = ({ onAddNew, sources = [] }) => (
   <div className="p-6">
     {/* Card container for the Monitored Sources table */}
     <div className="bg-white dark:bg-gray-700 p-4 rounded shadow mb-4">
@@ -49,5 +50,14 @@ const SourceManagement = ({ onAddNew, sources }) => (
     </button>
   </div>
 );
+
+SourceManagement.propTypes = {
+  onAddNew: PropTypes.func.isRequired,
+  sources: PropTypes.array, // Ensure sources is an array
+};
+
+SourceManagement.defaultProps = {
+  sources: [], // Default value to prevent errors
+};
 
 export default SourceManagement;
