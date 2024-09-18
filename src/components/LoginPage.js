@@ -1,34 +1,50 @@
 import React, { useState } from 'react';
-import { loginUser } from '../api';
+import { useNavigate } from 'react-router-dom';
+// import { loginUser } from '../../backend/controllers/authController';
+import {loginUser} from '../api';
 
 const LoginPage = () => {
-  const [showMFA, setShowMFA] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [mfaCode, setMfaCode] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
+    // try {
+    //   const response = await fetch('http://localhost:5000/api/auth/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ username, password }),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! status: ${response.status}`);
+    //   }
+
+    //   const data = await response.json();
+      
+    //   // Login successful
+    //   localStorage.setItem('token', data.token);
+    //   navigate('/dashboard'); // Redirect to /dashboard
+    // } catch (error) {
+    //   console.error('Login error:', error);
+    //   setError(error.message || 'An error occurred');
+    // }
+
     try {
-      const data = await loginUser(username, password); // Call the login API with username and password
-  
-      // Check if MFA is required (adjust according to your backend response)
-      if (data.mfaRequired) {
-        // MFA is required, show MFA form
-        setShowMFA(true);
-      } else {
-        // Login successful, handle success
-        console.log('Login successful:', data);
-        localStorage.setItem('token', data.token); // Store token or handle it as needed
-        // Redirect user or update state as necessary
-        // Example: history.push('/dashboard'); // If using react-router
-      }
+      const response = await loginUser(username, password);
+      
+      // Login successful
+      console.log("Hello");
+      localStorage.setItem('token', response.token);
+      navigate('/dashboard'); // Redirect to /dashboard
     } catch (error) {
-      console.error('Login error:', error); // Log error for debugging
-      setError(error.message); // Display error message to user
+      console.error('Login error:', error);
+      setError(error.message || 'An error occurred');
     }
   };
-  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -37,69 +53,40 @@ const LoginPage = () => {
 
         {error && <div className="text-red-500 mb-4">{error}</div>}
 
-        {!showMFA ? (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (username && password) {
-                console.log('Username and password form submitted');
-                setShowMFA(true); // Proceed to MFA form
-              } else {
-                setError('Please fill out both fields.');
-              }
-            }}
-          >
-            <div className="mb-4">
-              <label className="block mb-2">Username</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full p-2 border rounded"
-                placeholder="Enter username"
-              />
-            </div>
-            <div className="mb-6">
-              <label className="block mb-2">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 border rounded"
-                placeholder="Enter password"
-              />
-            </div>
-            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-              Next
-            </button>
-          </form>
-        ) : (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (mfaCode) {
-                console.log('MFA form submitted');
-                handleLogin(); // Call the login handler with MFA
-              } else {
-                setError('Please enter the MFA code.');
-              }
-            }}
-          >
-            <div className="mb-6">
-              <label className="block mb-2">Multi-Factor Authentication Code</label>
-              <input
-                type="text"
-                value={mfaCode}
-                onChange={(e) => setMfaCode(e.target.value)}
-                className="w-full p-2 border rounded"
-                placeholder="Enter MFA code"
-              />
-            </div>
-            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-              Login
-            </button>
-          </form>
-        )}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (username && password) {
+              handleLogin(); // Call handleLogin function
+            } else {
+              setError('Please fill out both fields.');
+            }
+          }}
+        >
+          <div className="mb-4">
+            <label className="block mb-2">Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter username"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block mb-2">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter password"
+            />
+          </div>
+          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
+            Login
+          </button>
+        </form>
       </div>
     </div>
   );
