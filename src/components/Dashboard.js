@@ -15,29 +15,7 @@ const Dashboard = () => {
     <div className="p-6  min-h-screen">
       {/* Widget section with dynamic effect */}
       <animated.div style={fadeIn}>
-        <div className="grid grid-cols-3 gap-6 mb-8">
-          <Widget
-            title="Total Alerts"
-            value="1,234"
-            change={5}
-            icon="⚠️"
-            bgColor="bg-gradient-to-r from-yellow-400 to-orange-500"
-          />
-          <Widget
-            title="Critical Alerts"
-            value="12"
-            change={-2}
-            icon="🔴"
-            bgColor="bg-gradient-to-r from-red-500 to-pink-500"
-          />
-          <Widget
-            title="Sources Monitored"
-            value="56"
-            change={3}
-            icon="📊"
-            bgColor="bg-gradient-to-r from-green-400 to-teal-500"
-          />
-        </div>
+
       </animated.div>
 
       {/* Alerts and System Status */}
