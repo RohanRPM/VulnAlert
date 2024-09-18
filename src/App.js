@@ -11,6 +11,9 @@ import Reports from './components/Reports';
 import Integrations from './components/Integrations';
 import AssetInventory from './components/AssetInventory';
 import Prototype from './components/Prototype'; // Import your Prototype component
+import Customization from './components/Customization';
+import AuditLogs from './components/AuditLogs';
+import Settings from './components/Settings';
 import './index.css';
 // import { loginUser } from './api'; 
 
@@ -46,6 +49,17 @@ const App = () => {
   //   }
   // };
 
+
+
+// Demo data for testing
+const demoRecipients = [
+  { name: 'John Doe', email: 'john.doe@example.com', group: 'Network Team' },
+  { name: 'Jane Smith', email: 'jane.smith@example.com', group: 'Application Security' },
+  { name: 'Bob Johnson', email: 'bob.johnson@example.com', group: 'Management' },
+  { name: 'Alice Brown', email: 'alice.brown@example.com', group: 'Development' },
+  { name: 'Michael White', email: 'michael.white@example.com', group: 'Operations' },
+];
+
   return (
     <Router>
       <div className={`flex ${isDarkMode ? 'dark' : ''}`}>
@@ -65,11 +79,14 @@ const App = () => {
                 element={<SourceManagement onAddNew={handleAddNewSource} sources={sources} />} 
               />
               <Route path="/alert-configuration" element={<AlertConfiguration />} />
-              <Route path="/recipients" element={<Recipients />} />
+              <Route path="/recipients" element={<Recipients recipients={demoRecipients}/>} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/integrations" element={<Integrations />} />
               <Route path="/asset-inventory" element={<AssetInventory />} />
               <Route path="/prototype" element={<Prototype />} />
+              <Route path="/customization" element={<Customization />} />
+              <Route path="/audit-logs" element={<AuditLogs />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </div>
         </div>

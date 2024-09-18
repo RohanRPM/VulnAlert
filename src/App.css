@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+/* Add this to your global CSS file */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes blink {
+  0% {
+    color: red;
+  }
+  50% {
+    color: green;
+  }
+  100% {
+    color: red;
+  }
+}
+
+.blink-red-green {
+  animation: blink 1s infinite;
+}
