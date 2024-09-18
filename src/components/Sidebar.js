@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Bell, Settings, Users, List, BarChart2, Key, Sliders, FileText, Home, Plus, X, Moon, Sun, Lock, Shield, Database, Activity } from 'lucide-react';
+import { Bell, Settings, Users, List, BarChart2, Key, Sliders,  Home, Database, Activity } from 'lucide-react';
 
 const Sidebar = ({ activePage, setActivePage }) => (
   <div className="w-64 bg-gray-800 h-screen p-4 text-white">

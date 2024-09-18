@@ -12,6 +12,7 @@ import Integrations from './components/Integrations';
 import AssetInventory from './components/AssetInventory';
 import Prototype from './components/Prototype'; // Import your Prototype component
 import './index.css';
+// import { loginUser } from './api'; 
 
 const App = () => {
   const [activePage, setActivePage] = useState('Dashboard');
@@ -30,6 +31,20 @@ const App = () => {
     };
     setSources([...sources, newSource]);
   };
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [error, setError] = useState('');
+
+  // const handleLogin = async () => {
+  //   try {
+  //     const data = await loginUser(username, password);
+  //     // Handle successful login (e.g., store token, redirect user)
+  //     console.log('Login successful:', data);
+  //     // Example: localStorage.setItem('token', data.token);
+  //   } catch (error) {
+  //     setError('Invalid credentials');
+  //   }
+  // };
 
   return (
     <Router>
@@ -43,7 +58,7 @@ const App = () => {
           />
           <div className="p-6">
             <Routes>
-              <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<LoginPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route 
                 path="/source-management" 
