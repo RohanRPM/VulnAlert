@@ -4,7 +4,7 @@ import { Bell, Settings, Users, List, BarChart2, Key, Sliders,  Home, Database, 
 
 const Sidebar = ({ activePage, setActivePage }) => (
   <div className="w-64 bg-gray-800 h-screen p-4 text-white">
-    <h1 className="text-xl font-bold mb-8">VulnAlert</h1>
+    <h1 className="text-xl font-bold mb-8">Parikshak</h1>
     <nav>
       {[{
         path: '/dashboard',
